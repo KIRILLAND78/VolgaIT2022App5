@@ -1,0 +1,26 @@
+﻿@page
+@model VolgaIT2022App5.Views.loginModel
+@{
+}
+    <div class="text-center">
+    <h1 class="display-4">Login page</h1>
+    </div>
+    <form method='post'>
+    <div class="validation"  asp-validation-summary="All"></div>
+        <div>
+            <label asp-for=UUser.Email>Email</label><br />
+            <input type="text"  asp-for=UUser.Email />
+            <span asp-validation-for=UUser.Email />
+        </div>
+        <div>
+            <label asp-for="UUser.Password">Введите пароль</label><br />
+            <input asp-for="UUser.Password" />
+            <span asp-validation-for="UUser.Password" />
+        </div>
+        <div>
+            <input type='submit' value='Login' />
+        </div>
+</form>
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

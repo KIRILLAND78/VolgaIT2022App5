@@ -1,0 +1,33 @@
+﻿
+@page
+@using VolgaIT2022App5.Models
+@model VolgaIT2022App5.Pages.registerModel
+@{
+}
+    <div class="text-center">
+    <h1 class="display-4">Register page</h1>
+    </div>
+    <form method='post'>
+   <div class="validation"  asp-validation-summary="All"></div>
+        <div>
+            <label asp-for=NewUser.Email>Email</label><br />
+            <input type="text"  asp-for=NewUser.Email />
+            <span asp-validation-for=NewUser.Email />
+        </div>
+        <div>
+            <label asp-for="NewUser.Password">Введите пароль</label><br />
+            <input asp-for="NewUser.Password" />
+            <span asp-validation-for="NewUser.Password" />
+        </div>
+        <div>
+            <label asp-for="NewUser.ConPassword">Повторите пароль</label><br />
+            <input asp-for="NewUser.ConPassword" />
+            <span asp-validation-for="NewUser.ConPassword" />
+        </div>
+        <div>
+            <input type='submit' value='Reg' />
+        </div>
+</form>
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
