@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using VolgaIT2022App5.Pages;
 using VolgaIT2022App5.Views;
 
-namespace VolgaIT2022app.Controllers
+namespace VolgaIT2022App5.Controllers
 {
     public class HomeController : Controller
     {
@@ -23,13 +23,14 @@ namespace VolgaIT2022app.Controllers
         {
             return View();
         }
+
         [Authorize]
         public IActionResult Apps()
         {
             return View();
         }
 
-        public IActionResult Login(User usr)
+        public IActionResult Login()
         {
             return View();
         }
@@ -38,11 +39,7 @@ namespace VolgaIT2022app.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Home");
-        }
+        
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()
         //{

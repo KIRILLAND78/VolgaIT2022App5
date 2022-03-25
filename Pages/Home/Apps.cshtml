@@ -1,0 +1,10 @@
+﻿@page
+@model VolgaIT2022App5.Pages.Home.AppsModel
+@{
+}
+<table class="table mt-5">
+<tr><th>Название</th><th>Описание</th></tr>
+@foreach (var App in Model.UserAppList){
+<tr><td>@App.Name</td><td>@App.Desc</td></tr> 
+}
+</table>
