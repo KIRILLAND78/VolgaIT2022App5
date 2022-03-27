@@ -2,3 +2,26 @@
 @model VolgaIT2022App5.Pages.Home.CreateAppModel
 @{
 }
+
+    <div class="text-center">
+    <h1 class="display-4">Страница входа</h1>
+    </div>
+    <form method='post'>
+    <div class="validation"  asp-validation-summary="All"></div>
+        <div>
+            <label asp-for="NewApp.Name">Введите название</label><br />
+            <input asp-for="NewApp.Name" />
+            <span asp-validation-for="NewApp.Name" />
+        </div>
+        <div>
+            <label asp-for="NewApp.Desc">Введите описание</label><br />
+            <input asp-for="NewApp.Desc" />
+            <span asp-validation-for="NewApp.Desc" />
+        </div>
+        <div>
+            <input type='submit' value='Создать' />
+        </div>
+</form>
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

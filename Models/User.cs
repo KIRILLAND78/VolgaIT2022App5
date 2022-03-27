@@ -13,7 +13,7 @@ namespace VolgaIT2022App5.Models
         //    this.Email = Email;
         //    this.Password = Password;
         //}
-        public int Id { get; set; } = -1;
+        public int Id { get; set; }
         [Required(ErrorMessage = "Не указана почта")]
         [EmailAddress]
         [DataType(DataType.EmailAddress)]

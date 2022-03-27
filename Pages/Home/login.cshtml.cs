@@ -13,11 +13,21 @@ namespace VolgaIT2022App5.Views
         [BindProperty]
         public User UUser { get; set; } = new();
 
+        public IActionResult OnGet()
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return Page();
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            Console.WriteLine(UUser.Email);
-            Console.WriteLine(UUser.Email);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 bool user = DBworkers.UserWorker.AuthUser(UUser.Email, UUser.Password);

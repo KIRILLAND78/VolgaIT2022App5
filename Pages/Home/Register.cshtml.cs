@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using VolgaIT2022App5.DBworkers;
 
 
 namespace VolgaIT2022App5.Pages
@@ -15,10 +16,21 @@ namespace VolgaIT2022App5.Pages
         [BindProperty]
         public RegUser NewUser { get; set; } = new();
 
+        public IActionResult OnGet()
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return Page();
+        }
+
         public async Task<IActionResult> OnPostAsync()
         {
-            Console.WriteLine(NewUser.Email);
-            Console.WriteLine(NewUser.Email);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 //addUser
@@ -61,6 +73,7 @@ namespace VolgaIT2022App5.Pages
                     // The full path or absolute URI to be used as an http 
                     // redirect response value.
                 };
+                UserWorker.AddUser(NewUser);
 
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
@@ -76,6 +89,5 @@ namespace VolgaIT2022App5.Pages
             // Something failed. Redisplay the form.
             return Page();
         }
-
     }
 }

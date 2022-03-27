@@ -22,13 +22,31 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Главная</a>
                         </li>
+                        @if (Context.User.Identity.IsAuthenticated)
+                        {<li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Home/Apps">Приложения</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Home/CreateApp">Добавить приложение</a>
+                        </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav flex-grow-3">
                         @if (!Context.User.Identity.IsAuthenticated) {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Home/Login">Вход</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Home/Register">Регистрация</a>
-                        </li> }
+                        </li> }else{
+                        <li class="nav-item">
+                            <a class="nav-link text-dark">@Context.User.Identity.Name </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Home/Logout">Выйти</a>
+                        </li>
+                        }
+
                     </ul>
                 </div>
             </div>
@@ -42,7 +60,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - VolgaIT2022App5 - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2022 - VolgaIT2022App5
         </div>
     </footer>
 
