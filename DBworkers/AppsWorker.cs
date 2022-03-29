@@ -58,7 +58,17 @@ namespace VolgaIT2022App5.DBworkers
                 return app.Id;
             }
         }
+        public static App FindById(int id)
+        {//true - пользователь уже есть
+            using (AppsContext db = new AppsContext())
+            {
+                App app = db.Apps
+                    .Where(b => b.Id == id)
+                    .FirstOrDefault();
 
+                return app;
+            }
+        }
         public static List<App> GetAppList(string ownerMail)
         {
             List<App> appList = new List<App>();

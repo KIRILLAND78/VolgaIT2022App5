@@ -25,7 +25,14 @@ namespace VolgaIT2022App5.Controllers
         }
 
         [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult Apps()
+        {
+            return View();
+        }
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public IActionResult AppDetailedStatistics()
         {
             return View();
         }

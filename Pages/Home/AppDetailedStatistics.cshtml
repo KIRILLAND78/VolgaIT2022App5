@@ -1,0 +1,30 @@
+﻿@page
+@using VolgaIT2022App5.Models;
+@using VolgaIT2022App5.DBworkers;
+@model VolgaIT2022App5.Pages.Home.AppDetailedStatisticsModel
+@{
+}
+@using (Html.BeginForm("AppDetailedStatistics", "Home", FormMethod.Get)) {
+    <fieldset>
+            Приложение: 
+            @Html.DropDownList("AList")
+        <p>
+            <input type="submit" value="Показать статистику" />
+        </p>
+    </fieldset>
+}
+<div class="form-group">
+        <!---<label asp-for="aaa" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            Html.DropDownListFor(model => model.appsView, (SelectList)Model.AList, "--Select--", new { class = "form-control"})
+            <span asp-validation-for="aaa" class="text-danger"></span>
+        </div>-->
+    </div>
+    @if (Model.CApp!=null) {
+    <a>Название: </a>@(Model.CApp.Name)
+    <a>Код: </a>@(Model.CApp.Identity)
+    <a>Количество GET: </a>@(DBworkers.EventsWorker.GetEventList(Model.CApp.Identity, EventType.GET).Count)
+    <a>Количество POST: </a>@(DBworkers.EventsWorker.GetEventList(Model.CApp.Identity, EventType.POST).Count)
+    <a>Описание: </a>@(Model.CApp.Desc)
+    <a>Дата созданиея: </a>@(Model.CApp.DateCreated.ToLongDateString())
+    }
