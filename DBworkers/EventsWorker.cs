@@ -46,13 +46,38 @@ namespace VolgaIT2022App5.DBworkers
         }
         public static List<Event> GetEventList(string Identity, EventType ET, int days)
         {
+            if (days <= -1)
+            {
+                return GetEventList(Identity, ET);
+            }
+
             List<Event> eventsList = new List<Event>();
 
             int oid = AppsWorker.IdentityToId(Identity);
 
             using (EventContext db = new EventContext())
             {
-                foreach (Event entry in db.Events.Where(b => b.App == oid).Where(b => b.EventType == ET).Where(b=> b.DateCreated >= DateTime.Now.AddDays(-days)))
+                foreach (Event entry in db.Events.Where(b => b.App == oid).Where(b => b.EventType == ET).Where(b=> b.DateCreated >= DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc).AddDays(-days)))
+                {
+                    eventsList.Add(entry);
+                }
+            }
+            return eventsList;
+        }
+        public static List<Event> GetEventList(string Identity, int days)
+        {
+            if (days <= -1)
+            {
+                return GetEventList(Identity);
+            }
+
+            List<Event> eventsList = new List<Event>();
+
+            int oid = AppsWorker.IdentityToId(Identity);
+
+            using (EventContext db = new EventContext())
+            {
+                foreach (Event entry in db.Events.Where(b => b.App == oid).Where(b => b.DateCreated >= DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc).AddDays(-days)))
                 {
                     eventsList.Add(entry);
                 }

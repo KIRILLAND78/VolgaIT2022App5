@@ -12,7 +12,7 @@ namespace VolgaIT2022App5.DBContexts
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=127.0.0.1;Port=5432;Database=apps_db;Username=postgres;Password=password;");
+            optionsBuilder.UseNpgsql(Config.AppsBDConnection);
         }
     }
 }

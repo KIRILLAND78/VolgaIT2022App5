@@ -3,28 +3,153 @@
 @using VolgaIT2022App5.DBworkers;
 @model VolgaIT2022App5.Pages.Home.AppDetailedStatisticsModel
 @{
-}
+}<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap-grid.css.map">
+    <link rel="stylesheet" href="../lib/jquery/dist/jquery.min.js">
+    <link rel="stylesheet" href="../css/site.css" asp-append-version="true" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+</head>
 @using (Html.BeginForm("AppDetailedStatistics", "Home", FormMethod.Get)) {
     <fieldset>
             Приложение: 
             @Html.DropDownList("AList")
+            Временной период:
+            @Html.DropDownList("TimePeriodList")
         <p>
             <input type="submit" value="Показать статистику" />
         </p>
     </fieldset>
 }
-<div class="form-group">
-        <!---<label asp-for="aaa" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            Html.DropDownListFor(model => model.appsView, (SelectList)Model.AList, "--Select--", new { class = "form-control"})
-            <span asp-validation-for="aaa" class="text-danger"></span>
-        </div>-->
-    </div>
+
+
     @if (Model.CApp!=null) {
-    <a>Название: </a>@(Model.CApp.Name)
-    <a>Код: </a>@(Model.CApp.Identity)
-    <a>Количество GET: </a>@(DBworkers.EventsWorker.GetEventList(Model.CApp.Identity, EventType.GET).Count)
-    <a>Количество POST: </a>@(DBworkers.EventsWorker.GetEventList(Model.CApp.Identity, EventType.POST).Count)
-    <a>Описание: </a>@(Model.CApp.Desc)
-    <a>Дата созданиея: </a>@(Model.CApp.DateCreated.ToLongDateString())
+        <table class="table mt-5">
+<tr><th style="width: 7%;">Название</th><th style="width: 20%;">Описание</th><th style="width: 8%;">Индентификатор</th><th style="width: 8%;">кол-во POST</th><th style="width: 8%;">кол-во GET</th><th style="width: 10%;">Дата создания</th></tr>
+<tr><td>@(Model.CApp.Name)</td><td>@(Model.CApp.Desc)</td><td>@(Model.CApp.Identity)</td><td>@(DBworkers.EventsWorker.GetEventList(Model.CApp.Identity, EventType.POST).Count)</td><td>@(DBworkers.EventsWorker.GetEventList(Model.CApp.Identity, EventType.GET).Count)</td><td>@(Model.CApp.DateCreated.ToLongDateString())</td></tr> 
+
+</table>
+
+<body>
+    <canvas id="pieChart" style="width: 80%; height: 80%"></canvas>
+        @if (Model.days > -1)
+        {
+            <canvas id="barChart" style="width: 80%; height: 80%"></canvas>
+            <canvas id="barChart2" style="width: 80%; height: 80%"></canvas>
+        }
+</body>
+<div>
+<script>
+    var ctxP = document.getElementById("pieChart").getContext('2d');
+    var myPieChart = new Chart(ctxP, {
+        type: 'pie',
+        data: {
+        labels: ["GET", "POST"],
+        datasets: [{
+            data: [@(DBworkers.EventsWorker.GetEventList(Model.CApp.Identity, EventType.GET).Count), @(DBworkers.EventsWorker.GetEventList(Model.CApp.Identity, EventType.POST).Count)],
+            backgroundColor: ["#F7464A", "#46BFBD"],
+            hoverBackgroundColor: ["#FF5A5E", "#5AD3D1"]
+        }]
+        },
+        options: {
+        responsive: true
+        }
+    });
+</script>
+@if (Model.days > -1)
+        {
+            <script>
+                var SetK = @Html.Raw(Json.Serialize(Model.GetKeys(Model.EventsDictDatePOST)));
+                var SetV = @Html.Raw(Json.Serialize(Model.GetValues(Model.EventsDictDatePOST)));
+                var ctxB = document.getElementById("barChart").getContext('2d');
+                var myBarChart = new Chart(ctxB, {
+                type: 'bar',
+                data: {
+                labels: SetK,
+                datasets: [{
+                label: 'Кол-во POST запросов по периоду',
+                data: SetV,
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                yAxes: [{
+                ticks: {
+                beginAtZero: true
+                }
+                }]
+                }
+                }
+                });
+            </script>
+            <script>
+                var SetK = @Html.Raw(Json.Serialize(Model.GetKeys(Model.EventsDictDateGET)));
+                var SetV = @Html.Raw(Json.Serialize(Model.GetValues(Model.EventsDictDateGET)));
+                var ctxB = document.getElementById("barChart2").getContext('2d');
+                var myBarChart = new Chart(ctxB, {
+                type: 'bar',
+                data: {
+                labels: SetK,
+                datasets: [{
+                label: 'Кол-во GET запросов по периоду',
+                data: SetV,
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                ],
+                borderWidth: 1
+                }]
+                },
+                options: {
+                scales: {
+                yAxes: [{
+                ticks: {
+                beginAtZero: true
+                }
+                }]
+                }
+                }
+                });
+            </script>
+        }
+    </div>
+<table class="table mt-5">
+    <tr><th style="width: 20%;">Тип запроса</th><th style="width: 20%;">Дата</th></tr>
+    @foreach (Event a in Model.EventsList)
+    {
+        <tr><td>@(a.EventType)</td><td>@(a.DateCreated.ToShortDateString())</td></tr>
+}
+</table>
+
     }
