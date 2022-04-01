@@ -1,5 +1,8 @@
 VolgaIT2022App
 
+Github:
+https://github.com/KIRILLAND78/VolgaIT2022App5/
+
 Образ в Docker Hub:
 https://hub.docker.com/repository/docker/kiri78/volgait2022
 
