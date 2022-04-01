@@ -11,7 +11,11 @@ https://hub.docker.com/repository/docker/kiri78/volgait2022
 ![image](https://user-images.githubusercontent.com/55920722/161267351-77d2e73b-012e-4c4c-8c57-0497a9061e2d.png)
 
 ИЛИ консоль:
-docker run -it --rm -p <Удобный для вас порт>:80 --name <Название> kiri78/volgait2022
+docker run -it --rm -p <Удобный для вас порт>:80 --name <Название> volgait2022
+
+Чтобы зайти на сайт, нужно будет ввести
+https://localhost:<Введенный раннее порт>
+
 
 Для получения POST и GET запросов к приложениям есть API: /api/event/код_приложения
 
