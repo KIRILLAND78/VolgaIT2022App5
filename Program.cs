@@ -11,7 +11,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization();
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+VolgaIT2022App5.Config.Init();//инициализация создания класса конфигом
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

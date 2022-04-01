@@ -71,7 +71,7 @@ namespace VolgaIT2022App5.Pages.Home
             }
             if (TimePeriodList != "4")
             {
-                for (int a = days; a > 0; a--)
+                for (int a = days-1; a >= 0; a--)
                 {
                     DateTime f = DateTime.Today;
                     f = f.AddDays(-a);

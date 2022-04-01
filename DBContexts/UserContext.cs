@@ -12,7 +12,7 @@ namespace VolgaIT2022App5.DBContexts
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(Config.UsersBDConnection);
+            optionsBuilder.UseNpgsql(Config.Configuration.GetConnectionString("UsersDBConnection").ToString());
         }
     }
 }
