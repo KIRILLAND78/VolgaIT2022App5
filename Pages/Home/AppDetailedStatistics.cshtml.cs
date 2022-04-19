@@ -92,7 +92,7 @@ namespace VolgaIT2022App5.Pages.Home
                 }
             }
             else {
-                string[] months = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь","Декабрь"};
+                string[] months = {"РЇРЅРІР°СЂСЊ", "Р¤РµРІСЂР°Р»СЊ", "РњР°СЂС‚", "РђРїСЂРµР»СЊ", "РњР°Р№", "РСЋРЅСЊ", "РСЋР»СЊ", "РђРІРіСѓСЃС‚", "РЎРµРЅС‚СЏР±СЂСЊ", "РћРєС‚СЏР±СЂСЊ", "РќРѕСЏР±СЂСЊ","Р”РµРєР°Р±СЂСЊ"};
                 for (int a = 0; a < 12; a++)
                 {
                     EventsDictDateGET.Add(months[a], 0);
@@ -110,10 +110,10 @@ namespace VolgaIT2022App5.Pages.Home
             }
 
             this.TimePeriodList = new List<SelectListItem>();
-            this.TimePeriodList.Add(new SelectListItem { Text = "Всё время", Value = "0" });
-            this.TimePeriodList.Add(new SelectListItem { Text = "Неделя", Value = "2" });
-            this.TimePeriodList.Add(new SelectListItem { Text = "Месяц", Value = "3" });
-            this.TimePeriodList.Add(new SelectListItem { Text = "Год", Value = "4" });
+            this.TimePeriodList.Add(new SelectListItem { Text = "Р’СЃС‘ РІСЂРµРјСЏ", Value = "0" });
+            this.TimePeriodList.Add(new SelectListItem { Text = "РќРµРґРµР»СЏ", Value = "2" });
+            this.TimePeriodList.Add(new SelectListItem { Text = "РњРµСЃСЏС†", Value = "3" });
+            this.TimePeriodList.Add(new SelectListItem { Text = "Р“РѕРґ", Value = "4" });
             this.AList = new List<SelectListItem>();
             foreach (App app_ in AppsWorker.GetAppList(HttpContext.User.Identity.Name))
                 {
